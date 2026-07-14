@@ -4,7 +4,9 @@ import { prisma } from "@/lib/prisma";
 export async function GET() {
   try {
     const beneficiaries = await prisma.beneficiaries.findMany({
-      take: 100,
+      orderBy: {
+        id: "asc",
+      },
     });
 
     const data = beneficiaries.map((item) => ({
