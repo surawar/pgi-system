@@ -9,11 +9,28 @@ export async function GET() {
       },
     });
 
-    return NextResponse.json({
-      count: beneficiaries.length,
-      firstId: beneficiaries[0]?.id.toString(),
-      lastId: beneficiaries[beneficiaries.length - 1]?.id.toString(),
-    });
+    const data = beneficiaries.map((item) => ({
+      id: Number(item.id),
+      taluka: item.taluka,
+      zp: item.zp,
+      panchayat: item.panchayat,
+      village_name: item.village_name,
+      reg_no: item.reg_no,
+      beneficiary: item.beneficiary,
+      year: item.year,
+      scheme_code: item.scheme_code,
+      house_status: item.house_status,
+      inspection_date: item.inspection_date,
+      amount_released: item.amount_released
+        ? Number(item.amount_released)
+        : null,
+      installment: item.installment
+        ? Number(item.installment)
+        : null,
+      credit_date: item.credit_date,
+    }));
+
+    return NextResponse.json(data);
   } catch (error) {
     console.error(error);
 
