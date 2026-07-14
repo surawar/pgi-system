@@ -1,0 +1,25 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model beneficiaries {
+  id              BigInt   @id
+  taluka          String?
+  zp              String?
+  panchayat       String?
+  village_name    String?
+  reg_no          String?
+  beneficiary     String?
+  year            String?
+  scheme_code     String?
+  house_status    String?
+  inspection_date String?
+  amount_released Decimal? @db.Decimal
+  installment     Decimal? @db.Decimal
+  credit_date     String?
+}
