@@ -3,24 +3,10 @@ import { prisma } from "@/lib/prisma";
 
 export async function GET() {
   try {
-    const beneficiaries = await prisma.beneficiaries.findMany({
-      orderBy: {
-        id: "asc",
-      },
-    });
+    const count = await prisma.beneficiaries.count();
 
-    const data = beneficiaries.map((item) => ({
-      ...item,
-      id: Number(item.id),
-      amount_released: item.amount_released
-        ? Number(item.amount_released)
-        : null,
-      installment: item.installment
-        ? Number(item.installment)
-        : null,
-    }));
+    return NextResponse.json({ count });
 
-    return NextResponse.json(data);
   } catch (error) {
     console.error(error);
 
